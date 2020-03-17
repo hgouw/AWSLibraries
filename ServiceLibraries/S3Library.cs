@@ -8,15 +8,14 @@ namespace ServiceLibraries
 {
     public static class S3Library
     {
-        public static bool CopyToBucket(string awsAccessKeyId, string awsSecretAccessKey, string awsBucketName, RegionEndpoint awsRegion)
+        public static bool CopyToBucket(string awsAccessKeyId, string awsSecretAccessKey, string awsBucketName, RegionEndpoint awsRegion, string name, string value)
         {
             try
             {
                 var filename = "log-" + Guid.NewGuid().ToString() + ".log";
-                var json = new JSon("Herman", "60");
                 var stream = new MemoryStream();
                 var serializer = new DataContractJsonSerializer(typeof(JSon));
-                serializer.WriteObject(stream, json);
+                serializer.WriteObject(stream, new JSon(name, value));
 
                 var transferUtility = new TransferUtility(awsAccessKeyId, awsSecretAccessKey, awsRegion);
                 transferUtility.Upload(stream, awsBucketName, filename);
