@@ -1,5 +1,5 @@
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ServiceLibraries;
+using Amazon;
 
 namespace ServiceLibraries.Test
 {
@@ -9,7 +9,7 @@ namespace ServiceLibraries.Test
         [TestMethod]
         public void CopyToBucketTest()
         {
-            Assert.IsTrue(S3Library.CopyToBucket());
+            Assert.IsTrue(S3Library.CopyToBucket("", "", "", RegionEndpoint.APSoutheast2));
         }
     }
 }
