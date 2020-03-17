@@ -1,7 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
+using System.Runtime.Serialization.Json;
 using Amazon;
 using Amazon.S3.Transfer;
 
@@ -9,23 +8,22 @@ namespace ServiceLibraries
 {
     public static class S3Library
     {
-        private const string awsAccessKeyId = "AKIAJ6BT7U37B3DREJSQ";
-        private const string awsSecretAccessKey = "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";
-        private const string filePath = "c:\\logs\\ASX_LNGSYDL-600244_2020-03-08.log";
-        private const string bucketName = "aio-snoopy-hgouw";
-
-        public static bool CopyToBucket()
+        public static bool CopyToBucket(string awsAccessKeyId, string awsSecretAccessKey, string bucketName)
         {
             try
             {
+                var json = new JSon("Herman", "60");
+                var stream = new MemoryStream();
+                var serializer = new DataContractJsonSerializer(typeof(JSon));
+                serializer.WriteObject(stream, json);
+
                 var filename = "log-" + Guid.NewGuid().ToString() + ".log";
                 var transferUtility = new TransferUtility(awsAccessKeyId, awsSecretAccessKey, RegionEndpoint.APSoutheast2);
-                transferUtility.Upload(filePath, bucketName);
+                transferUtility.Upload(stream, bucketName, filename);
                 return true;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                var message = ex.Message;
                 return false;
             }
         }
