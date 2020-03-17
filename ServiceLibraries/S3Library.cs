@@ -8,7 +8,7 @@ namespace ServiceLibraries
 {
     public static class S3Library
     {
-        public static bool CopyToBucket(string awsAccessKeyId, string awsSecretAccessKey, string awsBucketName, RegionEndpoint awsRegion, string name, string value)
+        public static bool CopyToBucket(string awsAccessKeyId, string awsSecretAccessKey, RegionEndpoint awsRegion, string awsBucketName, string name, string value)
         {
             try
             {
