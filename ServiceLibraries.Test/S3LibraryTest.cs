@@ -9,7 +9,10 @@ namespace ServiceLibraries.Test
         [TestMethod]
         public void CopyToBucketTest()
         {
-            Assert.IsTrue(S3Library.CopyToBucket("", "", "", RegionEndpoint.APSoutheast2));
+            // Personal
+            Assert.IsTrue(S3Library.CopyToBucket("", "", RegionEndpoint.APSoutheast2, "", "name", "value"));
+            // Sandbox
+            Assert.IsTrue(S3Library.CopyToBucket("", "", RegionEndpoint.APSoutheast2, "", "name", "value"));
         }
     }
 }
