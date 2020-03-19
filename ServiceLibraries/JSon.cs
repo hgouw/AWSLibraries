@@ -1,12 +1,12 @@
 ﻿namespace ServiceLibraries
 {
-    public class Json
+    public class JSon
     {
-        public Json()
+        public JSon()
         {
         }
 
-        public Json(string name, string value)
+        public JSon(string name, string value)
         {
             Name = name;
             Value = value;

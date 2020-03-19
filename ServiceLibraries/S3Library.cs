@@ -14,8 +14,8 @@ namespace ServiceLibraries
             {
                 var filename = "log-" + Guid.NewGuid().ToString() + ".log";
                 var stream = new MemoryStream();
-                var serializer = new DataContractJsonSerializer(typeof(Json));
-                serializer.WriteObject(stream, new Json(name, value));
+                var serializer = new DataContractJsonSerializer(typeof(JSon));
+                serializer.WriteObject(stream, new JSon(name, value));
 
                 var transferUtility = new TransferUtility(awsAccessKeyId, awsSecretAccessKey, awsRegion);
                 transferUtility.Upload(stream, awsBucketName, filename);
