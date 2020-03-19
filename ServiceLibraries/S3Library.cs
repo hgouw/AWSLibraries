@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization.Json;
 using Amazon;
@@ -14,8 +15,17 @@ namespace ServiceLibraries
             {
                 var filename = "log-" + Guid.NewGuid().ToString() + ".log";
                 var stream = new MemoryStream();
-                var serializer = new DataContractJsonSerializer(typeof(Json));
-                serializer.WriteObject(stream, new Json(name, value));
+
+                // A single object
+                //var serializer = new DataContractJsonSerializer(typeof(Json));
+                //serializer.WriteObject(stream, new Json(name, value));
+
+                // A list of objects
+                var jsons = new List<Json>();
+                jsons.Add(new Json("Kaori", "4"));
+                jsons.Add(new Json("Mimi", "1"));
+                var serializer = new DataContractJsonSerializer(typeof(List<Json>));
+                serializer.WriteObject(stream, jsons);
 
                 var transferUtility = new TransferUtility(awsAccessKeyId, awsSecretAccessKey, awsRegion);
                 transferUtility.Upload(stream, awsBucketName, filename);
